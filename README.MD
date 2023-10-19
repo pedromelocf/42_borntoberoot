@@ -2,6 +2,10 @@
 
 # Documentation
 
+Sources:
+
+https://www.ssh.com/academy/ssh/protocol
+
 Steps:
 
 - [x]  Download .ISO from [https://debian.org](http://debian.org)
@@ -9,19 +13,33 @@ Steps:
 - [x]  Create VM and SO Install
 
 Definir linguagem, idioma e localização, configurações de teclado;
+
 Definir hostname;
+
 Let domain name blank;
+
 Set root password (Write it!);
+
 Set up user account with your login and password;
+
 Set partition method to manual;
+
 Create a partition from hardisk;
+
 Encrypt partition with default configuration and set password;
+
 Configure LVM and create volume group named LVM-Group using encrypted partition;
+
 Create logical volume name as pdf;
+
 Configure logical volume following specification;
+
 Set location for updating packages and left blank;
+
 No popularity contest;
+
 Unselect all and install only the basic;
+
 Install grub boot loader;
 
 - [x]  Install and configure Sudo
@@ -35,66 +53,68 @@ Install grub boot loader;
 
 - [x]  Install SSH and configure
 
-$ sudo apt install openssh-server
+`$ sudo apt install openssh-server`
 
-$ cd etc/ssh
+`$ cd etc/ssh`
 
-$ sudo nano sshd_config
+`$ sudo nano sshd_config`
 
-1. Retirar comentário da porta e inserir porta 4242
-2. Retirar comentário da permisão de login root e setar para no
+1. Remove port comment and insert 4242 port as available
+2. Remove sudo login comment and change it to “no”
 
-$ sudo service ssh status
+`$ sudo service ssh status`
 
-$ ip addr | grep inet
+`$ ip addr | grep inet`
 
 - [x]  Install UFW Firewall and configure
 
-$ sudo apt install ufw
+`$ sudo apt install ufw`
 
-$ sudo ufw enable
+`$ sudo ufw enable`
 
-$ sudo ufw allow 4242
+`$ sudo ufw allow 4242`
 
-$ sudo service ufw status
+`$ sudo service ufw status`
 
 - [x]  Create user and groups
 
-Mostrar grupos de um user: $ groups user
+Show user groups: `$ groups user`
 
-Criar user : $ sudo useradd user
+New user: `$ sudo useradd user`
 
-Definir senha: $ sudo passwd user
+Set password: `$ sudo passwd user`
 
-Criar grupo: $ sudo groupadd group
+Create group: `$ sudo groupadd group`
 
-Mostrar grupos : $ cd ./etc
+Show groups :
 
-Adicionar usuario para um grupo: $ sudo usermod -a -G groupname username
+ 1.  `$ cd ./etc`
 
-$ cat group
+1. `$ cat group`
+
+Insert user into a group: `$ sudo usermod -a -G groupname username`
 
 - [x]  User managment
 
-1. Crie a pasta onde serão salvos todas os comandos executados via sudo
+1. Create a directory where sudo log commands will be saved
 
-    `sudo mkdir /var/log/sudo`
+    `$ sudo mkdir /var/log/sudo`
 
-2. Abra o arquivo de configuração
+2. Open sudo config file
 
-    `sudo visudo`
+    `$sudo visudo`
 
-    Acrescente as linhas ao arquivo:
+    Insert into file:
 
-    Para limitar a 3 tentativas:
+    Password tries for 3:
 
     `Defaults	passwd_tries = 3`
 
-    Para retornar uma mensagem de erro, quando o usuário digitar a senha errada:
+    Return message error when password is wrong:
 
-    `Defaults	badpass_message = "Wrong Password, padawan!"`
+    `Defaults	badpass_message = "Wrong Password, bro! Don´t you forgot it, right?"`
 
-    Para salvar todos os acessos via sudo
+    Save all log sudo acess:
 
     `Defaults	logfile="/var/log/sudo/sudo.log"`
 
@@ -102,11 +122,11 @@ $ cat group
 
     `Defaults	iolog_dir="/var/log/sudo"`
 
-    Para solicitar TTY
+    Set TTY (Print the terminal filename conected to the standard input)
 
     `Defaults	requiretty`
 
-    Para definir local do sudo
+    Set sudo local for only root and sudo users:
 
     `Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"`
 
@@ -160,7 +180,21 @@ $ cat group
 
 - [ ]  Cron/Script
 
-Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin directory
+Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin directory showing the specific information:
+
+| $ARCH | The architecture of your operating system and its kernel version. |  |
+| --- | --- | --- |
+| $CPU | The number of physical processors. |  |
+| $VCPU | The number of virtual processors. |  |
+| $RAM | The current available RAM on your server and its utilization rate as a percentage |  |
+| $DISK | The current available memory on your server and its utilization rate as a percentage |  |
+| $CPULOAD | The current utilization rate of your processors as a percentage. |  |
+| $LASTBOOT | The date and time of the last reboot. |  |
+| $LVMUSE | Whether LVM is active or not |  |
+| $CONECT | The number of active connections |  |
+| $USERLOG | The number of users using the server |  |
+| $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. |  |
+| $SUDO | The number of commands executed with the sudo program. |  |
 
 Open crontab and add the rule:
 
@@ -168,7 +202,7 @@ Open crontab and add the rule:
 $ sudo crontab -u root -e
 ```
 
-Add at end as follows: (*/10 means every 10 mins the script will show)
+Add at end as follows: (*/10 means every 10 mins the script will show. It will only run the script in specific times. Ex: 10:00 am; 10:10 am, 10:20 am. It will ignore the server startup time. Thats why we need to create a function to sleep based on server startup. Try it! ).
 
 ```
 */10 * * * * /usr/local/bin/monitoring.sh
