@@ -7,7 +7,23 @@ Steps:
 - [x]  Download .ISO from [https://debian.org](http://debian.org)
 - [x]  Open VirtualBox
 - [x]  Create VM and SO Install
-- [x]  Setting up VM
+
+Definir linguagem, idioma e localização, configurações de teclado;
+Definir hostname;
+Let domain name blank;
+Set root password (Write it!);
+Set up user account with your login and password;
+Set partition method to manual;
+Create a partition from hardisk;
+Encrypt partition with default configuration and set password;
+Configure LVM and create volume group named LVM-Group using encrypted partition;
+Create logical volume name as pdf;
+Configure logical volume following specification;
+Set location for updating packages and left blank;
+No popularity contest;
+Unselect all and install only the basic;
+Install grub boot loader;
+
 - [x]  Install and configure Sudo
 
 1. Login as root: $su
