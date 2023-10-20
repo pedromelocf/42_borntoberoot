@@ -1,6 +1,9 @@
 # Born2BeRoot
 
 # Documentation
+# Born2BeRoot
+
+# Documentation
 
 Sources:
 
@@ -133,68 +136,72 @@ Insert user into a group: `$ sudo usermod -a -G groupname username`
 
 - [x]  Password policy
 
-1. Configurações de Senha
+1. Password policy
 
-    Acesse o arquivo de configuração
+Acesse o arquivo de configuração
 
-    `nano /etc/login.defs`
+`nano /etc/login.defs`
 
-    Altere a linha 160: tempo em dias para a senha expirar
+Altere a linha 160: tempo em dias para a senha expirar
 
-    `PASS_MAX_DAYS   30`
+`PASS_MAX_DAYS   30`
 
-    Altere a linha 161: tempo em dias que a senha pode ser alterada antes de expirar
+Altere a linha 161: tempo em dias que a senha pode ser alterada antes de expirar
 
-    `PASS_MIN_DAYS   2`
+`PASS_MIN_DAYS   2`
 
-    Altere a linha 162: tempo em dias para a mensagem de alerta antes da senha expirar
+Altere a linha 162: tempo em dias para a mensagem de alerta antes da senha expirar
 
-    `PASS_WARN_AGE   7`
+`PASS_WARN_AGE   7`
 
-2. Política de Senhas Forte - Instalação do lib-pwquality
+1. Política de Senhas Forte
 
-    `apt install libpam-pwquality`
+Instalação do lib-pwquality
 
-    Verifique a instalação:
+`apt install libpam-pwquality`
 
-    `dpkg -l | grep libpam-pwquality`
+Verifique a instalação:
 
-    Acesse o arquivo de configuração
+`dpkg -l | grep libpam-pwquality`
 
-    `nano /etc/pam.d/common-password`
+Acesse o arquivo de configuração
 
-    Linha 25: acrescentar as regras:
+`nano /etc/pam.d/common-password`
 
-    `password	requisite	pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root`
+Linha 25: acrescentar as regras:
 
-    | Política | Descrição |
-    | --- | --- |
-    | retry=3 | número máximo de tentativas |
-    | minlen=10 | tamanho mínimo de caracteres da senha |
-    | ucredit=-1 | pelo menos uma letra maiúscula |
-    | dcredit=-1 | pelo menos um número |
-    | maxrepeat=3 | não pode ter mais que 3 caracteres idênticos consecutivos |
-    | reject_username | não pode incluir o nome do usuário |
-    | difok=7 | não pode repetir 7 dos caracteres da senha anterior |
-    | enforce_for_root | o root deve obedecer os mesmos critérios |
+`password	requisite	pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root`
+
+| Política | Descrição |
+| --- | --- |
+| retry=3 | número máximo de tentativas |
+| minlen=10 | tamanho mínimo de caracteres da senha |
+| ucredit=-1 | pelo menos uma letra maiúscula |
+| dcredit=-1 | pelo menos um número |
+| maxrepeat=3 | não pode ter mais que 3 caracteres idênticos consecutivos |
+| reject_username | não pode incluir o nome do usuário |
+| difok=7 | não pode repetir 7 dos caracteres da senha anterior |
+| enforce_for_root | o root deve obedecer os mesmos critérios |
 
 - [ ]  Cron/Script
 
 Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin directory showing the specific information:
 
-| $ARCH | The architecture of your operating system and its kernel version. |  |
+| Object | Description | Script |
 | --- | --- | --- |
-| $CPU | The number of physical processors. |  |
-| $VCPU | The number of virtual processors. |  |
-| $RAM | The current available RAM on your server and its utilization rate as a percentage |  |
+| $ARCH | The architecture of your operating system and its kernel version. | $uname -a |
+| $CPU | The number of physical processors. | $ cat /proc/cpuinfo | grep “physical id” | cut -d “:” -f 2 |
+| $VCPU | The number of virtual processors. | $ cat /proc/cpuinfo | grep processor | cut -d “:” -f 2 |
+| $RAM | The current available RAM on your server and its utilization rate as a percentage | $ free -m | grep Mem.: | awk ‘{print $3 / $2 * 100}’ |
 | $DISK | The current available memory on your server and its utilization rate as a percentage |  |
 | $CPULOAD | The current utilization rate of your processors as a percentage. |  |
-| $LASTBOOT | The date and time of the last reboot. |  |
+| $LASTBOOT | The date and time of the last reboot. | $ who -b | cut -d “a” -f 4 |
 | $LVMUSE | Whether LVM is active or not |  |
-| $CONECT | The number of active connections |  |
+| $CONECT | The number of active connections | $ netstat | grep tcp | wc -l |
 | $USERLOG | The number of users using the server |  |
-| $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. |  |
-| $SUDO | The number of commands executed with the sudo program. |  |
+| $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. | MAC : $ ip addr | grep ether | awk ‘’{print$2}
+IP: $ ip addr | grep dynamic | awk ‘{print$2}’ | cut -d “”/” -f 1 |
+| $SUDO | The number of commands executed with the sudo program. | $ who | wc -l |
 
 Open crontab and add the rule:
 
@@ -206,6 +213,18 @@ Add at end as follows: (*/10 means every 10 mins the script will show. It will o
 
 ```
 */10 * * * * /usr/local/bin/monitoring.sh
+```
+
+Insert script [sleep.sh](http://sleep.sh) for deal with server startup time.
+
+```bash
+#!/bin/bash
+
+tmp=$(uptime -s | cut -d ":" -f 2)
+minutes=$((tmp%10))
+seconds=$(uptime -s | cut -d ":" -f 3)
+
+sleep ${minutes}m ${seconds}s
 ```
 
 - [ ]  Install and set wordpress
