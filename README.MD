@@ -1,9 +1,6 @@
 # Born2BeRoot
 
 # Documentation
-# Born2BeRoot
-
-# Documentation
 
 Sources:
 
@@ -198,10 +195,10 @@ Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin dir
 | $LASTBOOT | The date and time of the last reboot. | $ who -b | cut -d “a” -f 4 |
 | $LVMUSE | Whether LVM is active or not |  |
 | $CONECT | The number of active connections | $ netstat | grep tcp | wc -l |
-| $USERLOG | The number of users using the server |  |
+| $USERLOG | The number of users using the server | $ who | wc -l |
 | $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. | MAC : $ ip addr | grep ether | awk ‘’{print$2}
 IP: $ ip addr | grep dynamic | awk ‘{print$2}’ | cut -d “”/” -f 1 |
-| $SUDO | The number of commands executed with the sudo program. | $ who | wc -l |
+| $SUDO | The number of commands executed with the sudo program. | $ grep -c “COMMAND” /var/log/sudo/sudo.log |
 
 Open crontab and add the rule:
 
@@ -212,7 +209,7 @@ $ sudo crontab -u root -e
 Add at end as follows: (*/10 means every 10 mins the script will show. It will only run the script in specific times. Ex: 10:00 am; 10:10 am, 10:20 am. It will ignore the server startup time. Thats why we need to create a function to sleep based on server startup. Try it! ).
 
 ```
-*/10 * * * * /usr/local/bin/monitoring.sh
+*/10 * * * * /usr/local/bin/sleep.sh
 ```
 
 Insert script [sleep.sh](http://sleep.sh) for deal with server startup time.
@@ -227,6 +224,34 @@ seconds=$(uptime -s | cut -d ":" -f 3)
 sleep ${minutes}m ${seconds}s
 ```
 
+- [ ]  Install lightpdd and configure
+
+```bash
+$ apt install lighttpd
+```
+
 - [ ]  Install and set wordpress
+
+```bash
+
+```
+
+- [ ]  Install PHP
+
+```bash
+$ apt install php
+```
+
 - [ ]  Install and set MariaDB
+
+```bash
+$ apt install mariadb-server
+$ sudo mariadb
+$ mysql -u root
+$ CREATE DATABASE <database-name>;
+$ CREATE USER 'user1'@localhost IDENTIFIED BY 'password1';
+$ SELECT User FROM mysql.user;
+$ FLUSH PRIVILEGES;
+```
+
 - [ ]  Install extra feature
