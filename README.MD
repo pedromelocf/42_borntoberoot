@@ -1,10 +1,10 @@
-# Born2BeRoot
-
 # Documentation
 
 Sources:
 
 https://www.ssh.com/academy/ssh/protocol
+
+https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lamp-on-debian-10-pt
 
 Steps:
 
@@ -224,25 +224,32 @@ seconds=$(uptime -s | cut -d ":" -f 3)
 sleep ${minutes}m ${seconds}s
 ```
 
-- [ ]  Install lightpdd and configure
+- [x]  Install lightpdd and configure
 
 ```bash
 $ apt install lighttpd
+$ sudo lighty-enable-mod fastcgi
+$ sudo lighty-enable-mod fastcgi-php
+$ sudo service lighttpd force-reload
+$ sudo systemctl status lighttpdroot
 ```
 
-- [ ]  Install and set wordpress
+- [x]  Install and set wordpress
 
 ```bash
-
+$ apt install wget
 ```
 
-- [ ]  Install PHP
+- [x]  Install PHP
 
 ```bash
 $ apt install php
+$ sudo apt install php-cgi php-mysql
+$ curl -s https://api.wordpress.org/secrete-key/1.1/salt
+Change wordpress key in correct place
 ```
 
-- [ ]  Install and set MariaDB
+- [x]  Install and set MariaDB
 
 ```bash
 $ apt install mariadb-server
