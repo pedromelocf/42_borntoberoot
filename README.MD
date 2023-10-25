@@ -135,70 +135,75 @@ Insert user into a group: `$ sudo usermod -a -G groupname username`
 
 1. Password policy
 
-Acesse o arquivo de configuração
+Acess file configuration
 
 `nano /etc/login.defs`
 
-Altere a linha 160: tempo em dias para a senha expirar
+Change 160 line: time to expire password
 
 `PASS_MAX_DAYS   30`
 
-Altere a linha 161: tempo em dias que a senha pode ser alterada antes de expirar
+Change 161 line: time before user cannot login
 
 `PASS_MIN_DAYS   2`
 
-Altere a linha 162: tempo em dias para a mensagem de alerta antes da senha expirar
+Change 162 line:  Password expiration alert
 
 `PASS_WARN_AGE   7`
 
-1. Política de Senhas Forte
+1. Strong password policy
 
-Instalação do lib-pwquality
+Installing lib-pwquality
 
 `apt install libpam-pwquality`
 
-Verifique a instalação:
+Verify instalation:
 
 `dpkg -l | grep libpam-pwquality`
 
-Acesse o arquivo de configuração
+Acess file configuration
 
 `nano /etc/pam.d/common-password`
 
-Linha 25: acrescentar as regras:
+Append rules to line 25
 
 `password	requisite	pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root`
 
-| Política | Descrição |
+| Polytics | Description |
 | --- | --- |
-| retry=3 | número máximo de tentativas |
-| minlen=10 | tamanho mínimo de caracteres da senha |
-| ucredit=-1 | pelo menos uma letra maiúscula |
-| dcredit=-1 | pelo menos um número |
-| maxrepeat=3 | não pode ter mais que 3 caracteres idênticos consecutivos |
-| reject_username | não pode incluir o nome do usuário |
-| difok=7 | não pode repetir 7 dos caracteres da senha anterior |
-| enforce_for_root | o root deve obedecer os mesmos critérios |
+| retry=3 | max attemps |
+| minlen=10 | min lenght password |
+| ucredit=-1 | at least 1 char uppercase |
+| dcredit=-1 | at least 1 number |
+| maxrepeat=3 | less than 3 equal chars consec |
+| reject_username | reject username |
+| difok=7 | cant repeat 7 chars from old password |
+| enforce_for_root | include rule for root |
 
-- [ ]  Cron/Script
+- [x]  Cron/Script
 
 Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin directory showing the specific information:
 
 | Object | Description | Script |
 | --- | --- | --- |
 | $ARCH | The architecture of your operating system and its kernel version. | $uname -a |
-| $CPU | The number of physical processors. | $ cat /proc/cpuinfo | grep “physical id” | cut -d “:” -f 2 |
-| $VCPU | The number of virtual processors. | $ cat /proc/cpuinfo | grep processor | cut -d “:” -f 2 |
-| $RAM | The current available RAM on your server and its utilization rate as a percentage | $ free -m | grep Mem.: | awk ‘{print $3 / $2 * 100}’ |
-| $DISK | The current available memory on your server and its utilization rate as a percentage |  |
-| $CPULOAD | The current utilization rate of your processors as a percentage. |  |
-| $LASTBOOT | The date and time of the last reboot. | $ who -b | cut -d “a” -f 4 |
-| $LVMUSE | Whether LVM is active or not |  |
-| $CONECT | The number of active connections | $ netstat | grep tcp | wc -l |
+| $CPU | The number of physical processors. | $(lscpu | grep Soquete | awk {'print $2'}) |
+| $VCPU | The number of virtual processors. | $(nproc) |
+| $RAM | The current available RAM on your server and its utilization rate as a percentage | RAM1=$(free -m | grep Mem.: | awk '{print $3}')
+RAM2=$(free -m | grep Mem.: | awk '{print $2}')
+RAMUSAGE=$(free -m | grep Mem.: | awk '{printf "%.2f%", $3/$2*100}') |
+| $DISK | The current available memory on your server and its utilization rate as a percentage | DISKUSAGE=$(df | grep root | awk '{printf "%.0f", $3/1000}')
+DISKTOTAL=$(df -h | grep root | awk '{printf "%0.fGB", $2}')
+DISKPERCENTAGE=$(df -h | grep root | awk '{printf "%d%", $5}') |
+| $CPULOAD | The current utilization rate of your processors as a percentage. | CPUSAGE=$(mpstat | grep all | awk '{print $12}')
+CPULOAD=$(awk -v cpusage="$CPUSAGE" 'BEGIN{printf "%.1f%", 100-cpusage}') |
+| $LASTBOOT | The date and time of the last reboot. | $(who -b | cut -d "a" -f 4) |
+| $LVMUSE | Whether LVM is active or not | $(if lsblk | grep -q "lvm"; then echo "yes"; else echo "no"; fi) |
+| $CONECT | The number of active connections | $(netstat -an | grep ESTABELECIDA | wc -l) |
 | $USERLOG | The number of users using the server | $ who | wc -l |
-| $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. | MAC : $ ip addr | grep ether | awk ‘’{print$2}
-IP: $ ip addr | grep dynamic | awk ‘{print$2}’ | cut -d “”/” -f 1 |
-| $SUDO | The number of commands executed with the sudo program. | $ grep -c “COMMAND” /var/log/sudo/sudo.log |
+| $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. | IPADDRS=$(ip addr | grep dynamic | awk '{print$2}' | cut -d "/" -f 1)
+MACADDRS=$(ip addr | grep ether | awk '{print$2}') |
+| $SUDO | The number of commands executed with the sudo program. | SUDO=$(grep -c "COMMAND" /var/log/sudo/sudo.log) |
 
 Open crontab and add the rule:
 
@@ -222,6 +227,8 @@ minutes=$((tmp%10))
 seconds=$(uptime -s | cut -d ":" -f 3)
 
 sleep ${minutes}m ${seconds}s
+
+/usr/local/bin/monitoring.sh
 ```
 
 - [x]  Install lightpdd and configure
