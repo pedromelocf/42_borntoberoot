@@ -184,26 +184,42 @@ Append rules to line 25
 
 Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin directory showing the specific information:
 
-| Object | Description | Script |
-| --- | --- | --- |
-| $ARCH | The architecture of your operating system and its kernel version. | $uname -a |
-| $CPU | The number of physical processors. | $(lscpu | grep Soquete | awk {'print $2'}) |
-| $VCPU | The number of virtual processors. | $(nproc) |
-| $RAM | The current available RAM on your server and its utilization rate as a percentage | RAM1=$(free -m | grep Mem.: | awk '{print $3}')
+  GNU nano 7.2                                                             /usr/local/bin/monitoring.sh
+#!/bin/bash
+
+ARCH=$(uname -a)
+CPU=$(lscpu | grep Soquete | awk '{print $2}')
+VCPU=$(nproc)
+RAM1=$(free -m | grep Mem.: | awk '{print $3}')
 RAM2=$(free -m | grep Mem.: | awk '{print $2}')
-RAMUSAGE=$(free -m | grep Mem.: | awk '{printf "%.2f%", $3/$2*100}') |
-| $DISK | The current available memory on your server and its utilization rate as a percentage | DISKUSAGE=$(df | grep root | awk '{printf "%.0f", $3/1000}')
+RAMUSAGE=$(free -m | grep Mem.: | awk '{printf "%.2f%", $3/$2*100}')
+DISKUSAGE=$(df | grep root | awk '{printf "%.0f", $3/1000}')
 DISKTOTAL=$(df -h | grep root | awk '{printf "%0.fGB", $2}')
-DISKPERCENTAGE=$(df -h | grep root | awk '{printf "%d%", $5}') |
-| $CPULOAD | The current utilization rate of your processors as a percentage. | CPUSAGE=$(mpstat | grep all | awk '{print $12}')
-CPULOAD=$(awk -v cpusage="$CPUSAGE" 'BEGIN{printf "%.1f%", 100-cpusage}') |
-| $LASTBOOT | The date and time of the last reboot. | $(who -b | cut -d "a" -f 4) |
-| $LVMUSE | Whether LVM is active or not | $(if lsblk | grep -q "lvm"; then echo "yes"; else echo "no"; fi) |
-| $CONECT | The number of active connections | $(netstat -an | grep ESTABELECIDA | wc -l) |
-| $USERLOG | The number of users using the server | $ who | wc -l |
-| $NETWORK | The IPv4 address of your server and its MAC (Media Access Control) address. | IPADDRS=$(ip addr | grep dynamic | awk '{print$2}' | cut -d "/" -f 1)
-MACADDRS=$(ip addr | grep ether | awk '{print$2}') |
-| $SUDO | The number of commands executed with the sudo program. | SUDO=$(grep -c "COMMAND" /var/log/sudo/sudo.log) |
+DISKPERCENTAGE=$(df -h | grep root | awk '{printf "%d%", $5}')
+CPUSAGE=$(mpstat | grep all | awk '{print $12}')
+CPULOAD=$(awk -v cpusage="$CPUSAGE" 'BEGIN{printf "%.1f%", 100-cpusage}')
+LASTBOOT=$(who -b | cut -d "a" -f 4)
+LVMUSE=$(if lsblk | grep -q "lvm"; then echo "yes"; else echo "no"; fi)
+CONNECTIONS=$(netstat -an | grep ESTABELECIDA | wc -l)
+USERLOG=$(who | wc -l)
+IPADDRS=$(ip addr | grep dynamic | cut -d "/" -f 1 | awk '{print $2}')
+MACADDRS=$(ip addr | grep ether | awk {'print $2'})
+SUDO=$(grep -c "COMMAND" /var/log/sudo/sudo.log)
+
+wall "
+#Architecture: $ARCH
+#CPU physical: $CPU
+#vCPU : $VCPU
+#Memory Usage: $RAM1/${RAM2}MB ($RAMUSAGE)
+#Disk Usage: $DISKUSAGE/$DISKTOTAL ($DISKPERCENTAGE)
+#CPU load : $CPULOAD
+#Last boot:$LASTBOOT
+#LVM use: $LVMUSE
+#Connections TCP : $CONNECTIONS ESTABLISHED
+#User log: $USERLOG
+#Network: IP $IPADDRS ($MACADDRS)
+#Sudo: $SUDO cmd
+"
 
 Open crontab and add the rule:
 
