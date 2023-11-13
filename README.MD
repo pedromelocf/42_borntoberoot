@@ -15,7 +15,7 @@ https://pedromelodev.com/index.php/2023/10/17/recoding-printf-in-c-understanding
 
 <h2> Grade </h2>
 
-<img src="https://github.com/pedromelocf/utilities/blob/master/125_grade.png" />
+<img src="https://github.com/pedromelocf/utilities/blob/master/125.png" />
 
 </div>
 
