@@ -309,4 +309,11 @@ $ SELECT User FROM mysql.user;
 $ FLUSH PRIVILEGES;
 ```
 
-- [ ]  Install extra feature
+- [x]  Install extra feature
+
+```
+Install GitHub CLI:
+1 - Install git;
+2 - Configure ssh key with github key.
+
+```
