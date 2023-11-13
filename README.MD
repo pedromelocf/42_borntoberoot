@@ -6,7 +6,7 @@ This project aims to introduce you to the wonderful world of virtualization.
 
 Skills: Network & system administration;
 
-<img src="https://github.com/pedromelocf/utilities/blob/master/ft_printfm.png" />
+<img src="https://github.com/pedromelocf/utilities/blob/master/born2berootm.png" />
 
 ![](https://komarev.com/ghpvc/?username=pedromelocf)
 
