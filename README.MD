@@ -206,6 +206,8 @@ Append rules to line 25
 Create the rule named [monitoring.sh](http://monitoring.sh) at usr/local/bin directory showing the specific information:
 
   GNU nano 7.2                                                             /usr/local/bin/monitoring.sh
+
+```
 #!/bin/bash
 
 ARCH=$(uname -a)
@@ -241,6 +243,8 @@ wall "
 #Network: IP $IPADDRS ($MACADDRS)
 #Sudo: $SUDO cmd
 "
+
+```
 
 Open crontab and add the rule:
 
