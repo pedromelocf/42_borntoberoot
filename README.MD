@@ -11,7 +11,7 @@ Skills: Network & system administration;
 ![](https://komarev.com/ghpvc/?username=pedromelocf)
 
 <h3> Check my article about this project: </h3> 
-https://pedromelodev.com/index.php/2023/10/17/recoding-printf-in-c-understanding-variadic-functions-stdargh/?_thumbnail_id=315
+https://pedromelodev.com/index.php/2023/11/14/born2beroot-virtual-machines-debian-secure-server-mastery/
 
 <h2> Grade </h2>
 
