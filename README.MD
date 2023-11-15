@@ -45,7 +45,7 @@ Set up user account with your login and password;
 
 Set partition method to manual;
 
-Create a partition from hardisk;
+Create a partition from hardisk for boot;
 
 Encrypt partition with default configuration and set password;
 
