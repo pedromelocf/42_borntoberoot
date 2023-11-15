@@ -63,6 +63,8 @@ Unselect all and install only the basic;
 
 Install grub boot loader;
 
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-18%2023-59-48.png" />
+
 - [x]  Install and configure Sudo
 
 1. Login as root: $su
