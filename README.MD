@@ -128,12 +128,15 @@ Install grub boot loader;
 <img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-33-42.png" />
 
 <h3> Disclaimer </h3>
+
 1. There are some mistakes in partition process. My tip for you is look into boot partitioning.
+
 2. Try it by yourself. It is a nice project.
 
 - [x]  Install and configure Sudo
 
 1. Login as root: $su
+
 2. $ apt install sudo
 
  3.  $ sudo usermod -a -G groupname username
