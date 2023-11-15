@@ -133,6 +133,8 @@ Install grub boot loader;
 
 2. Try it by yourself. It is a nice project.
 
+<h2> After correct istallation </h2>
+
 - [x]  Install and configure Sudo
 
 1. Login as root: $su
