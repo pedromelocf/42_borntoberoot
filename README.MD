@@ -65,6 +65,68 @@ Install grub boot loader;
 
 <img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-18%2023-59-48.png" />
 
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-03-47.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-03-50.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-04-26.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-08-57.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-10-27.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-11-38.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-12-34.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-13-50.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-14-20.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-14-38.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-15-18.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-15-56.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-16-02.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-17-34.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-18-01.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-19-22.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-22-11.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-23-31.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-25-06.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-25-18.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-25-37.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-25-49.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-26-46.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-27-25.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-28-06.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-30-00.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-30-22.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-30-49.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-31-27.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-31-51.png" />
+
+<img src="https://github.com/pedromelocf/42_borntoberoot/blob/main/prints/Screenshot%20from%202023-10-19%2000-33-42.png" />
+
 - [x]  Install and configure Sudo
 
 1. Login as root: $su
